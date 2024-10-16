@@ -1,58 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Star, Clock, Users, Utensils } from 'lucide-react';
+import { X } from 'lucide-react';
 import { fetchRecipeIngredients } from '../../services/api';
+import StarRating from './StarRating';
+import IngredientList from './IngredientList';
+import RecipeDetails from './RecipeDetails';
 import styles from './RecipeModal.module.css';
 
-const StarRating = React.memo(({ rating }) => {
-  return (
-    <div className="flex items-center">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <Star
-          key={star}
-          size={16}
-          className={`${
-            star <= rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
-          }`}
-        />
-      ))}
-      <span className="ml-1 text-sm text-gray-600">{rating}/5</span>
-    </div>
-  );
-});
-
-const IngredientItem = React.memo(({ ingredient, searchedIngredients }) => {
-  const highlightedText = (text, searchTerms) => {
-    if (!searchTerms.length) return text;
-
-    const regex = new RegExp(`(${searchTerms.join('|')})`, 'gi');
-    const parts = text.split(regex);
-
-    return parts.map((part, index) => 
-      regex.test(part) ? (
-        <span key={index} className="bg-yellow-200">{part}</span>
-      ) : (
-        <span key={index}>{part}</span>
-      )
-    );
-  };
-
-  const isPartialMatch = searchedIngredients.some(term => 
-    ingredient.name.toLowerCase().includes(term.toLowerCase())
-  );
-
-  return (
-    <div className={`text-sm ${isPartialMatch ? 'bg-green-100 border-green-200' : 'bg-gray-100 border-gray-200'} border rounded-md p-2 shadow-sm flex justify-between items-center`}>
-      <span className="font-medium">{highlightedText(ingredient.name, searchedIngredients)}</span>
-      <span className="text-gray-600">
-        {ingredient.quantity} {ingredient.unit}
-      </span>
-    </div>
-  );
-});
-
-export default function RecipeModal({ isOpen, onClose, recipe, searchedIngredients = [] }) {
+const RecipeModal = ({ isOpen, onClose, recipe, searchedIngredients = [] }) => {
   const [recipeDetails, setRecipeDetails] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -64,7 +20,7 @@ export default function RecipeModal({ isOpen, onClose, recipe, searchedIngredien
         const data = await fetchRecipeIngredients(recipe.id);
         setRecipeDetails(data);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || 'An error occurred');
       } finally {
         setLoading(false);
       }
@@ -107,10 +63,7 @@ export default function RecipeModal({ isOpen, onClose, recipe, searchedIngredien
         >
           <div className={styles.modalHeader}>
             <h2 className={styles.modalTitle}>{recipe?.title || 'Recipe Details'}</h2>
-            <button
-              onClick={onClose}
-              className={styles.closeButton}
-            >
+            <button onClick={onClose} className={styles.closeButton}>
               <X size={24} />
             </button>
           </div>
@@ -128,40 +81,7 @@ export default function RecipeModal({ isOpen, onClose, recipe, searchedIngredien
                 </div>
               )}
 
-              <div className={styles.recipeDetails}>
-                <h3 className={styles.sectionTitle}>
-                  <Utensils className="mr-2" size={20} />
-                  Recipe Details
-                </h3>
-                <div className={styles.detailsGrid}>
-                  <div>
-                    <p className={styles.detailLabel}>Cook Time</p>
-                    <p className={styles.detailValue}>
-                      <Clock size={18} className={styles.detailIcon} />
-                      {recipe.cook_time} min
-                    </p>
-                  </div>
-                  <div>
-                    <p className={styles.detailLabel}>Servings</p>
-                    <p className={styles.detailValue}>
-                      <Users size={18} className={styles.detailIcon} />
-                      {recipe.servings}
-                    </p>
-                  </div>
-                  <div>
-                    <p className={styles.detailLabel}>Category</p>
-                    <p className={styles.detailValue}>{recipeDetails?.category}</p>
-                  </div>
-                  <div>
-                    <p className={styles.detailLabel}>Rating</p>
-                    {recipeDetails?.average_rating ? (
-                      <StarRating rating={Math.round(recipeDetails.average_rating)} />
-                    ) : (
-                      <p className="text-sm text-gray-500">No ratings yet</p>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <RecipeDetails recipe={recipe} recipeDetails={recipeDetails} />
 
               {recipeDetails?.ratings && recipeDetails.ratings.length > 0 && (
                 <div className={styles.ratingsSection}>
@@ -186,22 +106,10 @@ export default function RecipeModal({ isOpen, onClose, recipe, searchedIngredien
               )}
               {error && <p className={styles.errorMessage}>{error}</p>}
               {recipeDetails && (
-                <div className={styles.ingredientsSection}>
-                  <div>
-                    <h3 className={styles.sectionTitle}>Ingredients</h3>
-                    <div className={styles.ingredientsList}>
-                      <div className={styles.ingredientsGrid}>
-                        {recipeDetails.ingredients.map((ingredient, index) => (
-                          <IngredientItem 
-                            key={index} 
-                            ingredient={ingredient} 
-                            searchedIngredients={searchedIngredients}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <IngredientList 
+                  ingredients={recipeDetails.ingredients}
+                  searchedIngredients={searchedIngredients}
+                />
               )}
             </div>
           </div>
@@ -210,4 +118,6 @@ export default function RecipeModal({ isOpen, onClose, recipe, searchedIngredien
     </AnimatePresence>,
     document.body
   );
-}
+};
+
+export default RecipeModal;
