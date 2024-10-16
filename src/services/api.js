@@ -1,10 +1,9 @@
-const API_BASE_URL = process.env.REACT_APP_API_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const APP_TOKEN = process.env.REACT_APP_SECRET_TOKEN;
 
 export const fetchRecipes = async (ingredients) => {
-  // Ensure ingredients is an array of strings
   const validIngredients = ingredients.filter(ingredient => typeof ingredient === 'string');
 
-  // Convert the array of ingredients to a comma-separated string
   const ingredientString = validIngredients.join(',');
 
   const response = await fetch(
@@ -14,6 +13,7 @@ export const fetchRecipes = async (ingredients) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'AppToken': APP_TOKEN,
       },
       credentials: 'include',
     }
@@ -34,6 +34,7 @@ export const fetchRecipeIngredients = async (recipeId) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'AppToken': APP_TOKEN,
       },
       credentials: 'include',
     }
@@ -53,6 +54,7 @@ export const fetchRecipeRatings = async (recipes) => {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'AppToken': APP_TOKEN,
       },
       credentials: 'include',
     })
