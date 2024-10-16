@@ -1,0 +1,11 @@
+.filterButton {
+    @apply flex items-center px-4 py-3 rounded-full text-sm font-medium transition-colors;
+  }
+  
+  .filterButtonActive {
+    @apply bg-green-500 text-white hover:bg-green-600;
+  }
+  
+  .filterButtonInactive {
+    @apply bg-gray-200 text-gray-700 hover:bg-gray-300;
+  }

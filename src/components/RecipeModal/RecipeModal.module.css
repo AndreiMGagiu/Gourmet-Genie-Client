@@ -1,0 +1,91 @@
+.modalOverlay {
+    @apply fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex items-center justify-center p-4 z-50;
+  }
+  
+  .modalContent {
+    @apply bg-white bg-opacity-80 backdrop-blur-md rounded-2xl p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl;
+  }
+  
+  .modalHeader {
+    @apply flex justify-between items-center mb-6;
+  }
+  
+  .modalTitle {
+    @apply text-3xl font-semibold text-gray-800;
+  }
+  
+  .closeButton {
+    @apply text-gray-500 hover:text-gray-700 transition-colors duration-200;
+  }
+  
+  .modalBody {
+    @apply flex flex-col md:flex-row gap-6;
+  }
+  
+  .recipeImage {
+    @apply w-full h-64 object-cover rounded-lg shadow-md;
+  }
+  
+  .recipeDetails {
+    @apply bg-gray-50 rounded-lg p-4 shadow-inner mb-4;
+  }
+  
+  .sectionTitle {
+    @apply text-xl font-semibold text-gray-800 mb-3 flex items-center;
+  }
+  
+  .detailsGrid {
+    @apply grid grid-cols-2 gap-4;
+  }
+  
+  .detailLabel {
+    @apply text-sm font-medium text-gray-600;
+  }
+  
+  .detailValue {
+    @apply text-lg font-semibold flex items-center;
+  }
+  
+  .detailIcon {
+    @apply mr-1 text-gray-400;
+  }
+  
+  .ratingsSection {
+    @apply bg-gray-50 rounded-lg p-4 shadow-inner;
+  }
+  
+  .ratingsList {
+    @apply space-y-2;
+  }
+  
+  .ratingItem {
+    @apply flex justify-between items-center;
+  }
+  
+  .ratingUser {
+    @apply text-sm text-gray-600;
+  }
+  
+  .ingredientsSection {
+    @apply space-y-6;
+  }
+  
+  .ingredientsList {
+    @apply bg-gray-50 rounded-lg p-4 shadow-inner;
+  }
+  
+  .ingredientsGrid {
+    @apply grid grid-cols-1 gap-2;
+  }
+  
+  .loadingSpinner {
+    @apply flex justify-center items-center h-32;
+  }
+  
+  .spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900;
+  }
+  
+  .errorMessage {
+    @apply text-sm text-red-500;
+  }

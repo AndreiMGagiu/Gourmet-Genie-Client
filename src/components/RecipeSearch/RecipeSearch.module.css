@@ -1,0 +1,15 @@
+.searchForm {
+  @apply w-full;
+}
+
+.inputWrapper {
+  @apply relative;
+}
+
+.searchInput {
+  @apply w-full px-5 py-3 pr-12 text-gray-700 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+}
+
+.searchButton {
+  @apply absolute right-2 top-1/2 transform -translate-y-1/2 p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+}

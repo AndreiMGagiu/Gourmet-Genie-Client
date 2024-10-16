@@ -1,0 +1,23 @@
+.paginationContainer {
+  @apply flex justify-center items-center space-x-2;
+}
+
+.paginationButton {
+  @apply p-2 rounded-md bg-gray-200 text-gray-600 disabled:opacity-50 hover:bg-gray-300 transition-colors;
+}
+
+.pageNumber {
+  @apply px-3 py-1 rounded-md transition-colors;
+}
+
+.activePageNumber {
+  @apply bg-blue-500 text-white;
+}
+
+.inactivePageNumber {
+  @apply bg-gray-200 text-gray-600 hover:bg-gray-300;
+}
+
+.ellipsis {
+  @apply text-gray-600;
+}
