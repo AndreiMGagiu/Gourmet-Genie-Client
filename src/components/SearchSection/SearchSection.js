@@ -18,6 +18,10 @@ export default function SearchSection({
   isVegan, 
   setIsVegan 
 }) {
+  const handleSearch = (ingredients) => {
+    onSearch(ingredients);
+  };
+
   return (
     <div className={`${styles.container} ${recipes.length === 0 ? '' : styles.containerWithRecipes}`}>
       <div className={styles.searchBox}>
@@ -39,7 +43,7 @@ export default function SearchSection({
         )}
         <div className={styles.filterContainer}>
           <div className={styles.searchInputContainer}>
-            <RecipeSearch onSearch={onSearch} />
+            <RecipeSearch onSearch={handleSearch} />
           </div>
           {showFilters && (
             <>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { fetchRecipes } from '../services/api';
 
 export function useRecipes() {
@@ -10,17 +10,20 @@ export function useRecipes() {
   const [isQuickRecipe, setIsQuickRecipe] = useState(false);
   const [isVegetarian, setIsVegetarian] = useState(false);
   const [isVegan, setIsVegan] = useState(false);
+  const [searchedIngredients, setSearchedIngredients] = useState([]);
 
-  const handleSearch = async (ingredients) => {
+  const handleSearch = useCallback(async (ingredients) => {
     setLoading(true);
     setError(null);
     setShowFilters(false);
     setIsQuickRecipe(false);
     setIsVegetarian(false);
     setIsVegan(false);
+    setSearchedIngredients(ingredients);
     try {
       const data = await fetchRecipes(ingredients);
       setRecipes(data.recipes);
+      setFilteredRecipes(data.recipes);
       const hasQuickRecipes = data.recipes.some(recipe => recipe.cook_time >= 10 && recipe.cook_time <= 15);
       const hasVegetarianRecipes = data.recipes.some(recipe => recipe.title.toLowerCase().includes('vegetarian'));
       const hasVeganRecipes = data.recipes.some(recipe => recipe.title.toLowerCase().includes('vegan'));
@@ -31,24 +34,20 @@ export function useRecipes() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    const applyFilters = (recipes) => {
-      let filtered = recipes;
-      if (isQuickRecipe) {
-        filtered = filtered.filter((recipe) => recipe.cook_time <= 15 && recipe.cook_time >= 10);
-      }
-      if (isVegetarian) {
-        filtered = filtered.filter((recipe) => recipe.title.toLowerCase().includes('vegetarian'));
-      }
-      if (isVegan) {
-        filtered = filtered.filter((recipe) => recipe.title.toLowerCase().includes('vegan'));
-      }
-      return filtered;
-    };
-
-    setFilteredRecipes(applyFilters(recipes));
+    let filtered = recipes;
+    if (isQuickRecipe) {
+      filtered = filtered.filter((recipe) => recipe.cook_time <= 15 && recipe.cook_time >= 10);
+    }
+    if (isVegetarian) {
+      filtered = filtered.filter((recipe) => recipe.title.toLowerCase().includes('vegetarian'));
+    }
+    if (isVegan) {
+      filtered = filtered.filter((recipe) => recipe.title.toLowerCase().includes('vegan'));
+    }
+    setFilteredRecipes(filtered);
   }, [recipes, isQuickRecipe, isVegetarian, isVegan]);
 
   return {
@@ -63,6 +62,7 @@ export function useRecipes() {
     setIsVegetarian,
     isVegan,
     setIsVegan,
-    handleSearch
+    handleSearch,
+    searchedIngredients
   };
 }

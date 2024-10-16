@@ -1,6 +1,5 @@
 import React from 'react';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
-import styles from './Pagination.module.css';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Pagination({ page, onPageChange, totalRecipes, recipesPerPage }) {
   const totalPages = Math.ceil(totalRecipes / recipesPerPage);
@@ -21,30 +20,21 @@ export default function Pagination({ page, onPageChange, totalRecipes, recipesPe
   }
 
   return (
-    <div className={styles.paginationContainer}>
-      <button
-        onClick={() => onPageChange(1)}
-        disabled={page === 1}
-        className={styles.paginationButton}
-        aria-label="Go to first page"
-      >
-        <ChevronsLeft size={20} />
-      </button>
+    <div className="flex items-center space-x-1">
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className={styles.paginationButton}
-        aria-label="Go to previous page"
+        className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50"
+        aria-label="Previous page"
       >
-        <ChevronLeft size={20} />
+        <ChevronLeft size={16} />
       </button>
-      {startPage > 1 && <span className={styles.ellipsis}>...</span>}
       {pageNumbers.map((number) => (
         <button
           key={number}
           onClick={() => onPageChange(number)}
-          className={`${styles.pageNumber} ${
-            page === number ? styles.activePageNumber : styles.inactivePageNumber
+          className={`px-3 py-1 rounded-md text-sm font-medium ${
+            page === number ? 'bg-blue-500 text-white' : 'text-gray-500 bg-white hover:bg-gray-50'
           }`}
           aria-label={`Go to page ${number}`}
           aria-current={page === number ? 'page' : undefined}
@@ -52,22 +42,13 @@ export default function Pagination({ page, onPageChange, totalRecipes, recipesPe
           {number}
         </button>
       ))}
-      {endPage < totalPages && <span className={styles.ellipsis}>...</span>}
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className={styles.paginationButton}
-        aria-label="Go to next page"
+        className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50"
+        aria-label="Next page"
       >
-        <ChevronRight size={20} />
-      </button>
-      <button
-        onClick={() => onPageChange(totalPages)}
-        disabled={page === totalPages}
-        className={styles.paginationButton}
-        aria-label="Go to last page"
-      >
-        <ChevronsRight size={20} />
+        <ChevronRight size={16} />
       </button>
     </div>
   );

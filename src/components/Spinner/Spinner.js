@@ -1,10 +1,9 @@
 import React from 'react';
-import styles from './Spinner.module.css';
 
 export default function Spinner() {
   return (
-    <div className={styles.container}>
-      <div className={styles.spinner}></div>
+    <div className="flex justify-center items-center h-64">
+      <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500"></div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from './components/NavBar/NavBar';
 import Header from './components/Header/Header';
 import SearchSection from './components/SearchSection/SearchSection';
-import RecipeSection from './components/RecipeSection/RecipeSection';
+import RecipeList from './components/RecipeList/RecipeList';
 import BackgroundElements from './components/BackgroundElements/BackgroundElements';
 import { useRecipes } from './hooks/useRecipes';
 
@@ -19,7 +19,8 @@ export default function App() {
     setIsVegetarian,
     isVegan,
     setIsVegan,
-    handleSearch
+    handleSearch,
+    searchedIngredients
   } = useRecipes();
 
   return (
@@ -41,11 +42,16 @@ export default function App() {
               isVegan={isVegan}
               setIsVegan={setIsVegan}
             />
-            <RecipeSection 
-              recipes={filteredRecipes} 
-              loading={loading} 
-              error={error}
-            />
+            {loading ? (
+              <div className="text-center mt-8">Loading...</div>
+            ) : error ? (
+              <div className="text-center mt-8 text-red-500">{error}</div>
+            ) : (
+              <RecipeList 
+                recipes={filteredRecipes} 
+                searchedIngredients={searchedIngredients}
+              />
+            )}
           </div>
         </main>
       </div>

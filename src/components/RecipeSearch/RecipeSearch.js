@@ -5,10 +5,14 @@ import styles from './RecipeSearch.module.css';
 export default function RecipeSearch({ onSearch }) {
   const [ingredients, setIngredients] = useState('');
 
+  const handleChange = (e) => {
+    setIngredients(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (ingredients.trim()) {
-      onSearch(ingredients.split(',').map(item => item.trim()));
+      onSearch(ingredients.split(',').map(item => item.trim()).filter(Boolean));
     }
   };
 
@@ -18,7 +22,7 @@ export default function RecipeSearch({ onSearch }) {
         <input
           type="text"
           value={ingredients}
-          onChange={(e) => setIngredients(e.target.value)}
+          onChange={handleChange}
           placeholder="Enter ingredients (comma separated)"
           className={styles.searchInput}
         />

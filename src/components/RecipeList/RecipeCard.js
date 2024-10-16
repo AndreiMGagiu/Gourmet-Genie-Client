@@ -1,8 +1,6 @@
 import React from 'react';
 import { Clock, Users } from 'lucide-react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import StarRating from './StarRating';
+import OptimizedImage from '../Image/OptimizedImage';
 import styles from './RecipeList.module.css';
 
 const getCookTimeColor = (cookTime) => {
@@ -12,17 +10,14 @@ const getCookTimeColor = (cookTime) => {
   return 'text-gray-600';
 };
 
-export default function RecipeCard({ recipe, rating }) {
+const RecipeCard = ({ recipe }) => {
   return (
     <div className={styles.recipeCard}>
       <div className={styles.imageWrapper}>
-        <LazyLoadImage
-          alt={recipe.title}
+        <OptimizedImage
           src={recipe.image}
-          effect="blur"
+          alt={recipe.title}
           className={styles.recipeImage}
-          wrapperClassName="absolute top-0 left-0 w-full h-full"
-          placeholder={<div className="absolute top-0 left-0 w-full h-full bg-gray-200 animate-pulse" />}
         />
       </div>
       <div className={styles.recipeInfo}>
@@ -39,10 +34,9 @@ export default function RecipeCard({ recipe, rating }) {
             <span>{recipe.servings}</span>
           </div>
         </div>
-        <div className="mt-1">
-          <StarRating rating={rating} />
-        </div>
       </div>
     </div>
   );
-}
+};
+
+export default RecipeCard;
