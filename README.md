@@ -2,6 +2,15 @@
 
 Gourmet Genie is a web application that helps users discover recipes based on the ingredients they have at home. It features a search functionality and ingredient matching system to suggest the most relevant recipes for users. Whether you're looking for quick meals or recipes tailored to specific ingredients, Gourmet Genie has you covered.
 
+## Table of Contents
+
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Backend](#backend)
+- [Installation and Setup](#installation-and-setup)
+- [Setup the Rails Backend](#setup-the-rails-backend)
+- [Running Locally](#running-locally)
+
 # Features
 - Search by Ingredients: Enter the ingredients you have, and Gourmet Genie will find the best matching recipes.
 - Recipe Suggestions: View detailed recipe instructions and ingredients.
