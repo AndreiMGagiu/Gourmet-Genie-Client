@@ -20,7 +20,7 @@ export default function SearchSection({ onSearch, showFilters, recipes, isQuickR
                 animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
               />
-              Discover recipes using the ingredients you already have
+              Discover recipes
             </h2>
           </>
         )}
