@@ -24,7 +24,7 @@ export default function Pagination({ page, onPageChange, totalRecipes, recipesPe
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50"
+        className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-green-50 disabled:opacity-50"
         aria-label="Previous page"
       >
         <ChevronLeft size={16} />
@@ -34,7 +34,7 @@ export default function Pagination({ page, onPageChange, totalRecipes, recipesPe
           key={number}
           onClick={() => onPageChange(number)}
           className={`px-3 py-1 rounded-md text-sm font-medium ${
-            page === number ? 'bg-blue-500 text-white' : 'text-gray-500 bg-white hover:bg-gray-50'
+            page === number ? 'bg-green-500 text-white' : 'text-gray-500 bg-white hover:bg-gray-50'
           }`}
           aria-label={`Go to page ${number}`}
           aria-current={page === number ? 'page' : undefined}
@@ -45,7 +45,7 @@ export default function Pagination({ page, onPageChange, totalRecipes, recipesPe
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-50 disabled:opacity-50"
+        className="px-2 py-1 rounded-md text-sm font-medium text-gray-500 bg-white hover:bg-green-50 disabled:opacity-50"
         aria-label="Next page"
       >
         <ChevronRight size={16} />
