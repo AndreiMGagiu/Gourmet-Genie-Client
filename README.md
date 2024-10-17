@@ -2,6 +2,8 @@
 
 Gourmet Genie is a web application that helps users discover recipes based on the ingredients they have at home. It features a search functionality and ingredient matching system to suggest the most relevant recipes for users. Whether you're looking for quick meals or recipes tailored to specific ingredients, Gourmet Genie has you covered.
 
+The application is deployed on Fly.io. To view the live application (and if you're looking for something to cook tonight 👨🏻‍🍳), you can visit: https://gourmet-genie-app.fly.dev
+
 ## Table of Contents
 
 - [Features](#features)
