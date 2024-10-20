@@ -25,8 +25,8 @@ export function useRecipes() {
       setRecipes(data.recipes);
       setFilteredRecipes(data.recipes);
       const hasQuickRecipes = data.recipes.some(recipe => recipe.cook_time >= 10 && recipe.cook_time <= 15);
-      const hasVegetarianRecipes = data.recipes.some(recipe => recipe.title.toLowerCase().includes('vegetarian'));
-      const hasVeganRecipes = data.recipes.some(recipe => recipe.title.toLowerCase().includes('vegan'));
+      const hasVegetarianRecipes = data.recipes.some(recipe => recipe.dietary_requirements.includes('Vegetarian'));
+      const hasVeganRecipes = data.recipes.some(recipe => recipe.dietary_requirements.includes('Vegan'));
       setShowFilters(hasQuickRecipes || hasVegetarianRecipes || hasVeganRecipes);
     } catch (err) {
       setError('Failed to fetch recipes. Please try again.');
@@ -42,10 +42,10 @@ export function useRecipes() {
       filtered = filtered.filter((recipe) => recipe.cook_time <= 15 && recipe.cook_time >= 10);
     }
     if (isVegetarian) {
-      filtered = filtered.filter((recipe) => recipe.title.toLowerCase().includes('vegetarian'));
+      filtered = filtered.filter((recipe) => recipe.dietary_requirements.includes('Vegetarian'));
     }
     if (isVegan) {
-      filtered = filtered.filter((recipe) => recipe.title.toLowerCase().includes('vegan'));
+      filtered = filtered.filter((recipe) => recipe.dietary_requirements.includes('Vegan'));
     }
     setFilteredRecipes(filtered);
   }, [recipes, isQuickRecipe, isVegetarian, isVegan]);
